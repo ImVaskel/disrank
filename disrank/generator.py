@@ -40,7 +40,8 @@ class Generator:
 
         profile_bytes = BytesIO(requests.get(profile_image).content)
         profile = Image.open(profile_bytes)
-        profile = profile.convert('RGBA').resize((140, 140))
+        profile = profile.convert('RGBA').resize((180, 180))
+        #profile = profile.convert('RGBA').resize((230, 200))
 
         if user_status == 'online':
             status = Image.open(self.online)
@@ -63,7 +64,7 @@ class Generator:
         mask = Image.new("RGBA", card.size, 0)
         mask_draw = ImageDraw.Draw(mask)
         mask_draw.ellipse(
-            (29, 29, 200, 200), fill=(255, 25, 255, 255)
+            [(57, 32), (223, 203)], fill=(255, 25, 255, 255)
         )  # The part need to be cropped
 
         # Editing stuff here
@@ -112,9 +113,10 @@ class Generator:
         length_of_bar = (current_percentage * 4.9) + 248
 
         blank_draw.rectangle((248, 188, length_of_bar, 202), fill=DARK)
-        blank_draw.ellipse((20, 20, 218, 218), fill=(255, 255, 255, 0), outline=DARK)
+        #blank_draw.ellipse((20, 20, 218, 218), fill=(255, 255, 255, 0), outline=DARK)
 
         profile_pic_holder.paste(profile, (29, 29, 209, 209))
+        
 
         pre = Image.composite(profile_pic_holder, card, mask)
         pre = Image.alpha_composite(pre, blank)

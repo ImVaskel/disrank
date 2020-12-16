@@ -40,8 +40,7 @@ class Generator:
 
         profile_bytes = BytesIO(requests.get(profile_image).content)
         profile = Image.open(profile_bytes)
-        profile = profile.convert('RGBA').resize((180, 180))
-        #profile = profile.convert('RGBA').resize((230, 200))
+        profile = profile.convert('RGBA').resize((200, 200))
 
         if user_status == 'online':
             status = Image.open(self.online)
@@ -115,7 +114,7 @@ class Generator:
         blank_draw.rectangle((248, 188, length_of_bar, 202), fill=DARK)
         #blank_draw.ellipse((20, 20, 218, 218), fill=(255, 255, 255, 0), outline=DARK)
 
-        profile_pic_holder.paste(profile, (29, 29, 209, 209))
+        profile_pic_holder.paste(profile, (29, 29, 229, 229))
         
 
         pre = Image.composite(profile_pic_holder, card, mask)

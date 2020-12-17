@@ -63,7 +63,7 @@ class Generator:
         mask = Image.new("RGBA", card.size, 0)
         mask_draw = ImageDraw.Draw(mask)
         mask_draw.ellipse(
-            [(57, 32), (223, 203)], fill=(255, 25, 255, 255)
+            [(67, 42), (212.5, 188)], fill=(255, 25, 255, 255)
         )  # The part need to be cropped
 
         # Editing stuff here
@@ -123,7 +123,8 @@ class Generator:
         # Status badge
         # Another blank
         blank = Image.new("RGBA", pre.size, (255, 255, 255, 0))
-        blank.paste(status, (169, 169))
+        #blank.paste(status, (169, 169))
+        blank.paste(status, (184, 159))
 
         final = Image.alpha_composite(pre, blank)
         final_bytes = BytesIO()

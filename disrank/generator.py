@@ -1,5 +1,5 @@
 from io import BytesIO
-from PIL import Image, ImageDraw, ImageFont
+from PIL import Image, ImageDraw, ImageFont, ImageChops
 import requests
 import math
 import os
@@ -17,7 +17,7 @@ class Generator:
         self.UbuntuB    = os.path.join(os.path.dirname(__file__), 'assets', 'Ubuntu-Medium.ttf')
         self.UbuntuR    = os.path.join(os.path.dirname(__file__), 'assets', 'Ubuntu-Regular.ttf')
         
-        
+    
     def generate_profile(self, bg_image:str=None, profile_image:str=None, level:int=1, current_xp:int=0, user_xp:int=20, next_xp:int=100, user_position:int=1, user_name:str='Shahriyar#9770', user_status:str='online'):
         if not bg_image:
             card = Image.open(self.default_bg).convert("RGBA")
@@ -43,7 +43,10 @@ class Generator:
 
         profile_bytes = BytesIO(requests.get(profile_image).content)
         profile = Image.open(profile_bytes)
-        profile = profile.convert('RGBA').resize((200, 200))
+        im = profile_image
+        profile = profile.convert('RGBA').resize((160, 160))
+        ImageChops.offset(im, xoffset=140, yoffset=0)
+        Image.load(im)
 
         if user_status == 'online':
             status = Image.open(self.online)
@@ -59,7 +62,7 @@ class Generator:
         status = status.convert("RGBA").resize((40,40))
 
         profile_pic_holder = Image.new(
-            "RGBA", card.size, (155, 155, 155)
+            "RGBA", card.size, (100, 100, 100)
         )  # Is used for a blank image so that i can mask
 
         # Mask to crop image
@@ -120,8 +123,8 @@ class Generator:
         blank_draw.rectangle((-1, 230, length_of_bar, 900), fill=DARK)
         
         #blank_draw.ellipse((20, 20, 218, 218), fill=(255, 255, 255, 0), outline=DARK)
-
-        profile_pic_holder.paste(profile, (29, 29, 229, 229))
+        
+        profile_pic_holder.paste(profile, (29, 29, 189, 189))
         
 
         pre = Image.composite(profile_pic_holder, card, mask)

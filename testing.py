@@ -1,5 +1,5 @@
 from disrank import generator
-from PIL import Image, ImageDraw, ImageFont
+from PIL import Image, ImageDraw, ImageFont, ImageChops
 from io import BytesIO
 import sys
 sys.version
@@ -15,7 +15,7 @@ args = {
 			'user_xp' : 50, # User current xp
 			'next_xp' : 100, # xp required for next level
 			'user_position' : 1, # User position in leaderboard
-			'user_name' : "DiabeticTurtle#1604", # user name with descriminator 
+			'user_name' : "DiabeticTurtlepip#1604", # user name with descriminator 
 			'user_status' : "online", # User status eg. online, offline, idle, streaming, dnd
 		}
 

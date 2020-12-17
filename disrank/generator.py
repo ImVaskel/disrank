@@ -72,9 +72,9 @@ class Generator:
         # Editing stuff here
 
         # ======== Fonts to use =============
-        font_normal = ImageFont.truetype(self.UbuntuR, 50)
+        font_normal = ImageFont.truetype(self.UbuntuR, 40)
         font_med = ImageFont.truetype(self.UbuntuR, 30)
-        font_large = ImageFont.truetype(self.UbuntuB, 50)
+        font_large = ImageFont.truetype(self.UbuntuB, 42)
         font_small = ImageFont.truetype(self.UbuntuR, 20)
         font_signa = ImageFont.truetype(self.font2, 25)
 
@@ -92,12 +92,15 @@ class Generator:
                 return str(round(xp / 1000000, 1)) + "M"
 
         draw = ImageDraw.Draw(card)
-        draw.text((350, 79), "Server", WHITE, font=font_med)
-        draw.text((359, 109), "Rank", WHITE, font=font_med)
-        draw.text((299, 10), user_name, WHITE, font=font_large)
-        draw.text((327, 155), f"#{user_position}", DARK, font=font_normal)
-        draw.text((645, 93), f"Level", WHITE, font=font_med)
-        draw.text((638, 154), f"{level}", WHITE, font=font_normal)
+        draw.text((290, 79), "Server", WHITE, font=font_med)
+        draw.text((299, 109), "Rank", WHITE, font=font_med)
+        draw.text((441, 79), "Weekly", WHITE, font=font_med)
+        draw.text((455, 109), "Rank", WHITE, font=font_med)
+        draw.text((461, 154), "WIP", YELLOW, font=font_med)
+        draw.text((259, 15), user_name, WHITE, font=font_large)
+        draw.text((274, 155), f"#{user_position}", DARK, font=font_normal)
+        draw.text((610, 83), f"Level", WHITE, font=font_med)
+        draw.text((610, 154), f"{level}", WHITE, font=font_normal)
         
                 
         # Adding another blank layer for the progress bar
@@ -112,7 +115,7 @@ class Generator:
         xphave = user_xp - current_xp
 
         current_percentage = (xphave / xpneed) * 100
-        length_of_bar = (current_percentage * 8) + 100 
+        length_of_bar = (current_percentage * 8) + 80 
         
         blank_draw.rectangle((-1, 230, length_of_bar, 900), fill=DARK)
         

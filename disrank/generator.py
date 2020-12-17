@@ -14,7 +14,10 @@ class Generator:
         self.streaming  = os.path.join(os.path.dirname(__file__), 'assets', 'streaming.png')
         self.font1      = os.path.join(os.path.dirname(__file__), 'assets', 'font.ttf')
         self.font2      = os.path.join(os.path.dirname(__file__), 'assets', 'font2.ttf')
-
+        self.UbuntuB    = os.path.join(os.path.dirname(__file__), 'assets', 'Ubuntu-Medium.ttf')
+        self.UbuntuR    = os.path.join(os.path.dirname(__file__), 'assets', 'Ubuntu-Regular.ttf')
+        
+        
     def generate_profile(self, bg_image:str=None, profile_image:str=None, level:int=1, current_xp:int=0, user_xp:int=20, next_xp:int=100, user_position:int=1, user_name:str='Shahriyar#9770', user_status:str='online'):
         if not bg_image:
             card = Image.open(self.default_bg).convert("RGBA")
@@ -56,25 +59,27 @@ class Generator:
         status = status.convert("RGBA").resize((40,40))
 
         profile_pic_holder = Image.new(
-            "RGBA", card.size, (155, 155, 155, 0)
+            "RGBA", card.size, (155, 155, 155)
         )  # Is used for a blank image so that i can mask
 
         # Mask to crop image
         mask = Image.new("RGBA", card.size, 0)
         mask_draw = ImageDraw.Draw(mask)
         mask_draw.ellipse(
-            [(67, 42), (212.5, 188)], fill=(255, 25, 255, 255)
+            [(67, 40), (213.5, 189)], fill=(255, 25, 255, 255)
         )  # The part need to be cropped
 
         # Editing stuff here
 
         # ======== Fonts to use =============
-        font_normal = ImageFont.truetype(self.font1, 36)
-        font_small = ImageFont.truetype(self.font1, 20)
+        font_normal = ImageFont.truetype(self.UbuntuR, 50)
+        font_med = ImageFont.truetype(self.UbuntuR, 30)
+        font_large = ImageFont.truetype(self.UbuntuB, 50)
+        font_small = ImageFont.truetype(self.UbuntuR, 20)
         font_signa = ImageFont.truetype(self.font2, 25)
 
         # ======== Colors ========================
-        WHITE = (189, 195, 199)
+        WHITE = (242, 242, 242)
         DARK = (110, 151, 241)
         YELLOW = (255, 234, 167)
 
@@ -87,31 +92,30 @@ class Generator:
                 return str(round(xp / 1000000, 1)) + "M"
 
         draw = ImageDraw.Draw(card)
-        draw.text((245, 22), user_name, DARK, font=font_normal)
-        draw.text((245, 98), f"Rank #{user_position}", DARK, font=font_small)
-        draw.text((245, 123), f"Level {level}", DARK, font=font_small)
-        draw.text(
-            (245, 150),
-            f"Exp {get_str(user_xp)}/{get_str(next_xp)}",
-            DARK,
-            font=font_small,
-        )
-
+        draw.text((350, 79), "Server", WHITE, font=font_med)
+        draw.text((359, 109), "Rank", WHITE, font=font_med)
+        draw.text((299, 10), user_name, WHITE, font=font_large)
+        draw.text((327, 155), f"#{user_position}", DARK, font=font_normal)
+        draw.text((645, 93), f"Level", WHITE, font=font_med)
+        draw.text((638, 154), f"{level}", WHITE, font=font_normal)
+        
+                
         # Adding another blank layer for the progress bar
         # Because drawing on card dont make their background transparent
         blank = Image.new("RGBA", card.size, (255, 255, 255, 0))
         blank_draw = ImageDraw.Draw(blank)
         blank_draw.rectangle(
-            (245, 185, 750, 205), fill=(255, 255, 255, 0), outline=DARK
+            (0, 240, 900, 230), fill=(7, 7, 7)
         )
 
         xpneed = next_xp - current_xp
         xphave = user_xp - current_xp
 
         current_percentage = (xphave / xpneed) * 100
-        length_of_bar = (current_percentage * 4.9) + 248
-
-        blank_draw.rectangle((248, 188, length_of_bar, 202), fill=DARK)
+        length_of_bar = (current_percentage * 8) + 100 
+        
+        blank_draw.rectangle((-1, 230, length_of_bar, 900), fill=DARK)
+        
         #blank_draw.ellipse((20, 20, 218, 218), fill=(255, 255, 255, 0), outline=DARK)
 
         profile_pic_holder.paste(profile, (29, 29, 229, 229))

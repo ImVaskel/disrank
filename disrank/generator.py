@@ -16,49 +16,7 @@ class Generator:
         self.font2      = os.path.join(os.path.dirname(__file__), 'assets', 'font2.ttf')
         self.UbuntuB    = os.path.join(os.path.dirname(__file__), 'assets', 'Ubuntu-Medium.ttf')
         self.UbuntuR    = os.path.join(os.path.dirname(__file__), 'assets', 'Ubuntu-Regular.ttf')
-    def rounded_rectangle(self: ImageDraw, xy, corner_radius, fill=None, outline=None):
-        upper_left_point = xy[0]
-        bottom_right_point = xy[1]
-        self.rectangle(
-            [
-                (upper_left_point[0], upper_left_point[1] + corner_radius),
-                (bottom_right_point[0], bottom_right_point[1] - corner_radius)
-            ],
-            fill=fill,
-            outline=outline
-            )
-        self.rectangle(
-            [
-                (upper_left_point[0] + corner_radius, upper_left_point[1]),
-                (bottom_right_point[0] - corner_radius, bottom_right_point[1])
-            ],
-            fill=fill,
-            outline=outline
-        )
-        self.pieslice([upper_left_point, (upper_left_point[0] + corner_radius * 2, upper_left_point[1] + corner_radius * 2)],
-            180,
-            270,
-            fill=fill,
-            outline=outline
-        )
-        self.pieslice([(bottom_right_point[0] - corner_radius * 2, bottom_right_point[1] - corner_radius * 2), bottom_right_point],
-            0,
-            90,
-            fill=fill,
-            outline=outline
-        )
-        self.pieslice([(upper_left_point[0], bottom_right_point[1] - corner_radius * 2), (upper_left_point[0] + corner_radius * 2, bottom_right_point[1])],
-            90,
-            180,
-            fill=fill,
-            outline=outline
-        )
-        self.pieslice([(bottom_right_point[0] - corner_radius * 2, upper_left_point[1]), (bottom_right_point[0], upper_left_point[1] + corner_radius * 2)],
-            270,
-            360,
-            fill=fill,
-            outline=outline
-        )    
+        
         
     def generate_profile(self, bg_image:str=None, profile_image:str=None, level:int=1, current_xp:int=0, user_xp:int=20, next_xp:int=100, user_position:int=1, user_name:str='Shahriyar#9770', user_status:str='online'):
         if not bg_image:

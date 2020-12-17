@@ -96,7 +96,7 @@ class Generator:
         draw.text((299, 109), "Rank", WHITE, font=font_med)
         draw.text((441, 79), "Weekly", WHITE, font=font_med)
         draw.text((455, 109), "Rank", WHITE, font=font_med)
-        draw.text((461, 154), "WIP", YELLOW, font=font_med)
+        draw.text((455, 154), "WIP", YELLOW, font=font_normal)
         draw.text((259, 15), user_name, WHITE, font=font_large)
         draw.text((274, 155), f"#{user_position}", DARK, font=font_normal)
         draw.text((610, 83), f"Level", WHITE, font=font_med)

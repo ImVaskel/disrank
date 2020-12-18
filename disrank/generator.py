@@ -1,5 +1,5 @@
 from io import BytesIO
-from PIL import Image, ImageDraw, ImageFont, ImageChops
+from PIL import Image, ImageDraw, ImageFont
 import requests
 import math
 import os
@@ -17,7 +17,7 @@ class Generator:
         self.UbuntuB    = os.path.join(os.path.dirname(__file__), 'assets', 'Ubuntu-Medium.ttf')
         self.UbuntuR    = os.path.join(os.path.dirname(__file__), 'assets', 'Ubuntu-Regular.ttf')
         
-    
+        
     def generate_profile(self, bg_image:str=None, profile_image:str=None, level:int=1, current_xp:int=0, user_xp:int=20, next_xp:int=100, user_position:int=1, user_name:str='Shahriyar#9770', user_status:str='online'):
         if not bg_image:
             card = Image.open(self.default_bg).convert("RGBA")
@@ -43,10 +43,7 @@ class Generator:
 
         profile_bytes = BytesIO(requests.get(profile_image).content)
         profile = Image.open(profile_bytes)
-        im = profile_image
-        profile = profile.convert('RGBA').resize((160, 160))
-        ImageChops.offset(im, xoffset=140, yoffset=0)
-        Image.load(im)
+        profile = profile.convert('RGBA').resize((200, 200))
 
         if user_status == 'online':
             status = Image.open(self.online)
@@ -62,7 +59,7 @@ class Generator:
         status = status.convert("RGBA").resize((40,40))
 
         profile_pic_holder = Image.new(
-            "RGBA", card.size, (100, 100, 100)
+            "RGBA", card.size, (155, 155, 155)
         )  # Is used for a blank image so that i can mask
 
         # Mask to crop image
@@ -78,7 +75,7 @@ class Generator:
         font_normal = ImageFont.truetype(self.UbuntuR, 40)
         font_med = ImageFont.truetype(self.UbuntuR, 30)
         font_large = ImageFont.truetype(self.UbuntuB, 42)
-        font_small = ImageFont.truetype(self.UbuntuR, 20)
+        font_small = ImageFont.truetype(self.UbuntuB, 22)
         font_signa = ImageFont.truetype(self.font2, 25)
 
         # ======== Colors ========================
@@ -100,6 +97,7 @@ class Generator:
         draw.text((441, 79), "Weekly", WHITE, font=font_med)
         draw.text((455, 109), "Rank", WHITE, font=font_med)
         draw.text((455, 154), "WIP", YELLOW, font=font_normal)
+        draw.text((780, 200), f"Exp {get_str(user_xp)}/{get_str(next_xp)}", WHITE, font=font_small)
         draw.text((259, 15), user_name, WHITE, font=font_large)
         draw.text((274, 155), f"#{user_position}", DARK, font=font_normal)
         draw.text((610, 83), f"Level", WHITE, font=font_med)
@@ -111,7 +109,7 @@ class Generator:
         blank = Image.new("RGBA", card.size, (255, 255, 255, 0))
         blank_draw = ImageDraw.Draw(blank)
         blank_draw.rectangle(
-            (0, 240, 900, 230), fill=(7, 7, 7)
+            (0, 250, 900, 230), fill=(7, 7, 7)
         )
 
         xpneed = next_xp - current_xp
@@ -123,8 +121,8 @@ class Generator:
         blank_draw.rectangle((-1, 230, length_of_bar, 900), fill=DARK)
         
         #blank_draw.ellipse((20, 20, 218, 218), fill=(255, 255, 255, 0), outline=DARK)
-        
-        profile_pic_holder.paste(profile, (29, 29, 189, 189))
+
+        profile_pic_holder.paste(profile, (29, 29, 229, 229))
         
 
         pre = Image.composite(profile_pic_holder, card, mask)

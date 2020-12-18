@@ -13,7 +13,7 @@ args = {
 			'level' : 1, # User current level 
 			'current_xp' : 10, # Current level minimum xp 
 			'user_xp' : 50, # User current xp
-			'next_xp' : 100, # xp required for next level
+			'next_xp' : 155, # xp required for next level
 			'user_position' : 1, # User position in leaderboard
 			'user_name' : "DiabeticTurtlepip#1604", # user name with descriminator 
 			'user_status' : "online", # User status eg. online, offline, idle, streaming, dnd
